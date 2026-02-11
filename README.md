@@ -138,3 +138,21 @@ See [docs/02-architecture.md](docs/02-architecture.md) for the full architecture
 | [07 - Routing](docs/07-routing.md) | Auto route, AppRoutes, navigation patterns |
 | [08 - Internationalization](docs/08-internationalization.md) | i18n with intl + ARB files |
 | [09 - Theming](docs/09-theming.md) | Design system, client theme overrides |
+
+## Contributing
+
+Pull requests with improvements are welcome! Whether it's a bug fix, a new feature template, better docs, or performance improvements — all contributions help the community.
+
+The goal of this project is to **help the Flutter community scale SaaS ideas for everyone**. A solid, open architecture shouldn't be a competitive advantage locked behind closed doors — it should be a starting point anyone can build on.
+
+If you have ideas, open an issue or submit a PR.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Author
+
+**Marcelo Mussi** — [ProDev](https://github.com/prodevcom)
+
+Built with Flutter and a passion for scalable architecture.
