@@ -1,0 +1,82 @@
+name: mono_app
+
+packages:
+  - apps/*
+  - packages/*
+  - packages/modules/*
+  - packages/features/*
+
+command:
+  bootstrap:
+    usePubspecOverrides: false
+
+ide:
+  intellij: false
+
+scripts:
+  gen:
+    run: dart run build_runner build --delete-conflicting-outputs
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: build_runner
+    description: Run build_runner in all packages
+
+  l10n:
+    run: flutter gen-l10n
+    exec:
+      concurrency: 1
+    packageFilters:
+      fileExists: l10n.yaml
+    description: Generate localizations in all packages with arb files
+
+  analyze:
+    run: dart analyze --fatal-infos
+    exec:
+      concurrency: 4
+    description: Run dart analyze in all packages
+
+  test:
+    run: flutter test
+    exec:
+      concurrency: 4
+    packageFilters:
+      dirExists: test
+    description: Run flutter test in all packages
+
+  format:check:
+    run: dart format --set-exit-if-changed .
+    exec:
+      concurrency: 4
+    description: Check dart formatting
+
+  format:
+    run: dart format .
+    exec:
+      concurrency: 4
+    description: Format all dart files
+
+  clean:
+    run: flutter clean
+    exec:
+      concurrency: 4
+    description: Clean all packages
+
+  build:boilerplate:dev:
+    run: flutter build apk --dart-define-from-file=env/dev.json
+    packageFilters:
+      scope: app_boilerplate
+    description: Build boilerplate app with dev flavor
+
+  run:boilerplate:dev:
+    run: flutter run --dart-define-from-file=env/dev.json
+    packageFilters:
+      scope: app_boilerplate
+    description: Run boilerplate app with dev flavor
+
+  ci:
+    description: Run CI pipeline
+    steps:
+      - analyze
+      - format:check
+      - test

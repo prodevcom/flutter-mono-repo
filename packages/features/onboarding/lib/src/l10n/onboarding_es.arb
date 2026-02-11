@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "step1Title": "Bienvenido",
+  "step1Description": "Descubre todas las increíbles funciones que tenemos para ti.",
+  "step2Title": "Personaliza",
+  "step2Description": "Personaliza la app según tus preferencias.",
+  "step3Title": "Comenzar",
+  "step3Description": "¡Todo listo! Comencemos tu viaje.",
+  "skip": "Omitir",
+  "next": "Siguiente",
+  "getStarted": "Comenzar"
+}

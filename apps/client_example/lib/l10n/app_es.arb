@@ -1,0 +1,12 @@
+{
+  "@@locale": "es",
+  "appTitle": "Cliente Ejemplo",
+  "welcomeMessage": "¡Bienvenido a Cliente Ejemplo!",
+  "welcomeBack": "¡Bienvenido de nuevo, {name}!",
+  "settings": "Configuración",
+  "language": "Idioma",
+  "theme": "Tema",
+  "darkMode": "Modo Oscuro",
+  "about": "Acerca de",
+  "version": "Versión {version}"
+}

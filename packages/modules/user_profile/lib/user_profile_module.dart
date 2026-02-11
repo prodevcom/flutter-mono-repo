@@ -1,0 +1,9 @@
+export 'src/domain/entities/profile.dart';
+export 'src/domain/repositories/profile_repository.dart';
+export 'src/domain/use_cases/get_profile_use_case.dart';
+export 'src/domain/use_cases/update_profile_use_case.dart';
+export 'src/data/dtos/profile_dto.dart';
+export 'src/data/data_sources/profile_remote_data_source.dart';
+export 'src/data/repositories/profile_repository_impl.dart';
+export 'src/di/user_profile_module_di.dart';
+export 'src/di/user_profile_module_di.module.dart';

@@ -1,0 +1,16 @@
+{
+  "@@locale": "es",
+  "cancel": "Cancelar",
+  "ok": "OK",
+  "close": "Cerrar",
+  "save": "Guardar",
+  "delete": "Eliminar",
+  "edit": "Editar",
+  "loading": "Cargando...",
+  "error": "Error",
+  "retry": "Reintentar",
+  "search": "Buscar",
+  "noResults": "No se encontraron resultados",
+  "confirm": "Confirmar",
+  "back": "Volver"
+}

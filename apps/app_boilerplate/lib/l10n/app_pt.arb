@@ -1,0 +1,12 @@
+{
+  "@@locale": "pt",
+  "appTitle": "App Boilerplate",
+  "welcomeMessage": "Bem-vindo ao app!",
+  "welcomeBack": "Bem-vindo de volta, {name}!",
+  "settings": "Configurações",
+  "language": "Idioma",
+  "theme": "Tema",
+  "darkMode": "Modo Escuro",
+  "about": "Sobre",
+  "version": "Versão {version}"
+}

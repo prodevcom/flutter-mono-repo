@@ -1,0 +1,13 @@
+{
+  "@@locale": "en",
+  "homeTitle": "Home",
+  "@homeTitle": { "description": "Home page title" },
+  "noItems": "No items available",
+  "@noItems": { "description": "Empty state message" },
+  "retry": "Retry",
+  "@retry": { "description": "Retry button" },
+  "featured": "Featured",
+  "@featured": { "description": "Featured badge" },
+  "viewAll": "View All",
+  "@viewAll": { "description": "View all link" }
+}

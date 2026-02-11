@@ -1,0 +1,7 @@
+targets:
+  $default:
+    builders:
+      injectable_generator|injectable_builder:
+        enabled: true
+      auto_route_generator|auto_route_generator:
+        enabled: true

@@ -1,0 +1,23 @@
+{
+  "@@locale": "en",
+  "profileTitle": "Profile",
+  "@profileTitle": { "description": "Profile page title" },
+  "editProfile": "Edit Profile",
+  "@editProfile": { "description": "Edit profile button" },
+  "name": "Name",
+  "@name": { "description": "Name field" },
+  "email": "Email",
+  "@email": { "description": "Email field" },
+  "phone": "Phone",
+  "@phone": { "description": "Phone field" },
+  "bio": "Bio",
+  "@bio": { "description": "Bio field" },
+  "save": "Save",
+  "@save": { "description": "Save button" },
+  "retry": "Retry",
+  "@retry": { "description": "Retry button" },
+  "logout": "Logout",
+  "@logout": { "description": "Logout button" },
+  "logoutConfirm": "Are you sure you want to logout?",
+  "@logoutConfirm": { "description": "Logout confirmation" }
+}

@@ -1,0 +1,5 @@
+arb-dir: lib/src/l10n
+template-arb-file: ds_en.arb
+output-localization-file: ds_localizations.dart
+output-class: DsLocalizations
+output-dir: lib/src/l10n/generated

@@ -1,0 +1,13 @@
+{
+  "@@locale": "pt",
+  "profileTitle": "Perfil",
+  "editProfile": "Editar Perfil",
+  "name": "Nome",
+  "email": "E-mail",
+  "phone": "Telefone",
+  "bio": "Bio",
+  "save": "Salvar",
+  "retry": "Tentar novamente",
+  "logout": "Sair",
+  "logoutConfirm": "Tem certeza que deseja sair?"
+}

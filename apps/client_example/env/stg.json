@@ -1,0 +1,5 @@
+{
+  "FLAVOR": "stg",
+  "APP_NAME": "Client Example Stg",
+  "BASE_URL": "https://stg-api.example.com/v1"
+}

@@ -1,0 +1,5 @@
+{
+  "FLAVOR": "prod",
+  "APP_NAME": "Boilerplate",
+  "BASE_URL": "https://api.example.com/v1"
+}

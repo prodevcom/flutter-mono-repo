@@ -1,0 +1,21 @@
+{
+  "@@locale": "en",
+  "step1Title": "Welcome",
+  "@step1Title": { "description": "First onboarding step title" },
+  "step1Description": "Discover all the amazing features we have for you.",
+  "@step1Description": { "description": "First step description" },
+  "step2Title": "Personalize",
+  "@step2Title": { "description": "Second onboarding step title" },
+  "step2Description": "Customize the app to match your preferences.",
+  "@step2Description": { "description": "Second step description" },
+  "step3Title": "Get Started",
+  "@step3Title": { "description": "Third onboarding step title" },
+  "step3Description": "You're all set! Let's begin your journey.",
+  "@step3Description": { "description": "Third step description" },
+  "skip": "Skip",
+  "@skip": { "description": "Skip button" },
+  "next": "Next",
+  "@next": { "description": "Next button" },
+  "getStarted": "Get Started",
+  "@getStarted": { "description": "Get started button" }
+}

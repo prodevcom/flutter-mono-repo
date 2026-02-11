@@ -1,0 +1,18 @@
+{
+  "@@locale": "pt",
+  "loginTitle": "Entrar",
+  "registerTitle": "Cadastrar",
+  "email": "E-mail",
+  "emailHint": "Digite seu e-mail",
+  "emailRequired": "E-mail é obrigatório",
+  "password": "Senha",
+  "passwordHint": "Digite sua senha",
+  "passwordRequired": "Senha é obrigatória",
+  "name": "Nome",
+  "nameHint": "Digite seu nome",
+  "login": "Entrar",
+  "register": "Cadastrar",
+  "forgotPassword": "Esqueceu a senha?",
+  "dontHaveAccount": "Não tem uma conta?",
+  "alreadyHaveAccount": "Já tem uma conta?"
+}

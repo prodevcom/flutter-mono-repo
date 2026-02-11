@@ -1,0 +1,31 @@
+{
+  "@@locale": "en",
+  "appTitle": "Boilerplate App",
+  "@appTitle": { "description": "The app title" },
+  "welcomeMessage": "Welcome to the app!",
+  "@welcomeMessage": { "description": "Welcome message on home screen" },
+  "welcomeBack": "Welcome back, {name}!",
+  "@welcomeBack": {
+    "description": "Welcome back message with user name",
+    "placeholders": {
+      "name": { "type": "String" }
+    }
+  },
+  "settings": "Settings",
+  "@settings": { "description": "Settings page title" },
+  "language": "Language",
+  "@language": { "description": "Language selector label" },
+  "theme": "Theme",
+  "@theme": { "description": "Theme selector label" },
+  "darkMode": "Dark Mode",
+  "@darkMode": { "description": "Dark mode toggle" },
+  "about": "About",
+  "@about": { "description": "About page title" },
+  "version": "Version {version}",
+  "@version": {
+    "description": "App version display",
+    "placeholders": {
+      "version": { "type": "String" }
+    }
+  }
+}

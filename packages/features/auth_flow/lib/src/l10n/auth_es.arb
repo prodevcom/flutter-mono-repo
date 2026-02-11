@@ -1,0 +1,18 @@
+{
+  "@@locale": "es",
+  "loginTitle": "Iniciar sesión",
+  "registerTitle": "Registrarse",
+  "email": "Correo electrónico",
+  "emailHint": "Ingresa tu correo",
+  "emailRequired": "El correo es obligatorio",
+  "password": "Contraseña",
+  "passwordHint": "Ingresa tu contraseña",
+  "passwordRequired": "La contraseña es obligatoria",
+  "name": "Nombre",
+  "nameHint": "Ingresa tu nombre",
+  "login": "Iniciar sesión",
+  "register": "Registrarse",
+  "forgotPassword": "¿Olvidaste tu contraseña?",
+  "dontHaveAccount": "¿No tienes una cuenta?",
+  "alreadyHaveAccount": "¿Ya tienes una cuenta?"
+}

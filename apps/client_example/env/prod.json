@@ -1,0 +1,5 @@
+{
+  "FLAVOR": "prod",
+  "APP_NAME": "Client Example",
+  "BASE_URL": "https://api.example.com/v1"
+}

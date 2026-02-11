@@ -1,0 +1,5 @@
+{
+  "FLAVOR": "dev",
+  "APP_NAME": "Client Example Dev",
+  "BASE_URL": "https://dev-api.example.com/v1"
+}
