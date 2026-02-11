@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
@@ -36,8 +37,14 @@ class RegisterPage extends StatelessWidget {
             DsButton(
               label: l10n.register,
               onPressed: () {
-                // TODO: Implement registration
+                context.router.pushPath(AppRoutes.home);
               },
+            ),
+            const SizedBox(height: AppSpacing.md),
+            DsButton(
+              label: l10n.login,
+              variant: DsButtonVariant.text,
+              onPressed: () => context.router.pushPath(AppRoutes.login),
             ),
           ],
         ),

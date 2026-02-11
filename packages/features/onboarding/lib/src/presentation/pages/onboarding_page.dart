@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 
@@ -64,11 +65,10 @@ class _OnboardingPageState extends State<OnboardingPage> {
                   DsButton(
                     label: l10n.skip,
                     variant: DsButtonVariant.text,
-                    onPressed: () {
-                      // TODO: Navigate to login or home
-                    },
+                    onPressed: () => context.router.pushPath(AppRoutes.home),
                   ),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: List.generate(
                       steps.length,
                       (index) => Container(
@@ -88,6 +88,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                     label: _currentPage == steps.length - 1
                         ? l10n.getStarted
                         : l10n.next,
+                    variant: DsButtonVariant.outlined,
                     onPressed: () {
                       if (_currentPage < steps.length - 1) {
                         _pageController.nextPage(
@@ -95,7 +96,7 @@ class _OnboardingPageState extends State<OnboardingPage> {
                           curve: Curves.easeInOut,
                         );
                       } else {
-                        // TODO: Navigate to login or home
+                        context.router.pushPath(AppRoutes.login);
                       }
                     },
                   ),

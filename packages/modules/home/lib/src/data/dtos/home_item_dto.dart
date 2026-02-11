@@ -7,7 +7,7 @@ part 'home_item_dto.g.dart';
 
 @freezed
 abstract class HomeItemDto with _$HomeItemDto {
-  HomeItemDto._();
+  const HomeItemDto._();
 
   const factory HomeItemDto({
     required String id,

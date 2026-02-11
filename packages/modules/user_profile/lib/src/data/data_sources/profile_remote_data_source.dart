@@ -8,6 +8,8 @@ abstract class ProfileRemoteDataSource {
   Future<ProfileDto> updateProfile(ProfileDto profile);
 }
 
+@prod
+@Environment('stg')
 @LazySingleton(as: ProfileRemoteDataSource)
 class ProfileRemoteDataSourceImpl implements ProfileRemoteDataSource {
   ProfileRemoteDataSourceImpl(this._apiClient);

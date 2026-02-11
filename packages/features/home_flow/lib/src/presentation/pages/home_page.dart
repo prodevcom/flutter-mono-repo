@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -19,7 +20,36 @@ class HomePage extends StatelessWidget {
     return BlocProvider(
       create: (_) => GetIt.I<HomeCubit>()..loadItems(),
       child: Scaffold(
-        appBar: AppBar(title: Text(l10n.homeTitle)),
+        appBar: AppBar(
+          title: Text(l10n.homeTitle),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.person),
+              onPressed: () => context.router.pushPath(AppRoutes.profile),
+            ),
+            PopupMenuButton<String>(
+              onSelected: (value) {
+                switch (value) {
+                  case 'onboarding':
+                    context.router.pushPath(AppRoutes.onboarding);
+                  case 'login':
+                    context.router.pushPath(AppRoutes.login);
+                  case 'register':
+                    context.router.pushPath(AppRoutes.register);
+                  case 'logout':
+                    context.router.pushPath(AppRoutes.login);
+                }
+              },
+              itemBuilder: (_) => [
+                const PopupMenuItem(value: 'onboarding', child: Text('Onboarding')),
+                const PopupMenuItem(value: 'login', child: Text('Login')),
+                const PopupMenuItem(value: 'register', child: Text('Register')),
+                const PopupMenuDivider(),
+                const PopupMenuItem(value: 'logout', child: Text('Logout')),
+              ],
+            ),
+          ],
+        ),
         body: BlocBuilder<HomeCubit, HomeState>(
           builder: (context, state) => switch (state) {
             HomeInitial() || HomeLoading() => const DsLoading(),

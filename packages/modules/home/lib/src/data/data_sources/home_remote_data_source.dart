@@ -8,6 +8,8 @@ abstract class HomeRemoteDataSource {
   Future<HomeItemDto> getHomeItemById(String id);
 }
 
+@prod
+@Environment('stg')
 @LazySingleton(as: HomeRemoteDataSource)
 class HomeRemoteDataSourceImpl implements HomeRemoteDataSource {
   HomeRemoteDataSourceImpl(this._apiClient);

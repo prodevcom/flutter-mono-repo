@@ -7,7 +7,7 @@ part 'user_dto.g.dart';
 
 @freezed
 abstract class UserDto with _$UserDto {
-  UserDto._();
+  const UserDto._();
 
   const factory UserDto({
     required String id,

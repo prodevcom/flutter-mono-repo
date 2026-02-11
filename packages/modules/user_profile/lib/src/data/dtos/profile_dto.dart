@@ -7,7 +7,7 @@ part 'profile_dto.g.dart';
 
 @freezed
 abstract class ProfileDto with _$ProfileDto {
-  ProfileDto._();
+  const ProfileDto._();
 
   const factory ProfileDto({
     required String id,

@@ -1,3 +1,5 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,6 +64,12 @@ class _LoginFormState extends State<LoginForm> {
             label: l10n.login,
             isLoading: widget.isLoading,
             onPressed: widget.isLoading ? null : _onSubmit,
+          ),
+          const SizedBox(height: AppSpacing.md),
+          DsButton(
+            label: l10n.register,
+            variant: DsButtonVariant.text,
+            onPressed: () => AutoRouter.of(context).pushPath(AppRoutes.register),
           ),
         ],
       ),

@@ -20,6 +20,9 @@ export 'src/base/use_case.dart';
 export 'src/base/result.dart';
 export 'src/base/failure.dart';
 
+// Navigation
+export 'src/navigation/app_routes.dart';
+
 // Extensions
 export 'src/extensions/string_extensions.dart';
 export 'src/extensions/context_extensions.dart';

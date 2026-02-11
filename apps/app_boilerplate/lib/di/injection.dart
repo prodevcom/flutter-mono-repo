@@ -27,4 +27,5 @@ final getIt = GetIt.instance;
     ExternalModule(ProfileFlowPackageModule),
   ],
 )
-Future<void> configureDependencies() async => getIt.init();
+Future<void> configureDependencies(String environment) async =>
+    getIt.init(environment: environment);

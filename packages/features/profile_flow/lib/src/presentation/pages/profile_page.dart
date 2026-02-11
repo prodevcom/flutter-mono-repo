@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:core/core.dart';
 import 'package:design_system/design_system.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -46,9 +47,7 @@ class ProfilePage extends StatelessWidget {
                   DsButton(
                     label: l10n.editProfile,
                     variant: DsButtonVariant.outlined,
-                    onPressed: () {
-                      // TODO: Navigate to edit profile
-                    },
+                    onPressed: () => context.router.pushPath(AppRoutes.editProfile),
                   ),
                 ],
               ),

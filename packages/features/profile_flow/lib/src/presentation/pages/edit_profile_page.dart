@@ -28,9 +28,7 @@ class EditProfilePage extends StatelessWidget {
             const SizedBox(height: AppSpacing.lg),
             DsButton(
               label: l10n.save,
-              onPressed: () {
-                // TODO: Implement update profile
-              },
+              onPressed: () => context.router.maybePop(),
             ),
           ],
         ),

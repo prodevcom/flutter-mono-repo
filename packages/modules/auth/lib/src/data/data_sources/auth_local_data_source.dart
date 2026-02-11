@@ -14,6 +14,8 @@ abstract class AuthLocalDataSource {
   Future<void> clearToken();
 }
 
+@prod
+@Environment('stg')
 @LazySingleton(as: AuthLocalDataSource)
 class AuthLocalDataSourceImpl implements AuthLocalDataSource {
   AuthLocalDataSourceImpl(this._localStorage, this._secureStorage);
