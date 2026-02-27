@@ -27,5 +27,31 @@ final getIt = GetIt.instance;
     ExternalModule(ProfileFlowPackageModule),
   ],
 )
-Future<void> configureDependencies(String environment) async =>
-    getIt.init(environment: environment);
+Future<void> configureDependencies(String environment) async {
+  await getIt.init(environment: environment);
+
+  if (environment == 'dev') {
+    _registerDevOverrides();
+  }
+}
+
+/// Replaces real data sources with in-memory fakes for local development.
+///
+/// This runs AFTER [getIt.init] so fakes always override the real
+/// implementations regardless of injectable_generator's registration order.
+void _registerDevOverrides() {
+  getIt.allowReassignment = true;
+  getIt.registerLazySingleton<AuthRemoteDataSource>(
+    () => FakeAuthRemoteDataSource(),
+  );
+  getIt.registerLazySingleton<AuthLocalDataSource>(
+    () => FakeAuthLocalDataSource(),
+  );
+  getIt.registerLazySingleton<HomeRemoteDataSource>(
+    () => FakeHomeRemoteDataSource(),
+  );
+  getIt.registerLazySingleton<ProfileRemoteDataSource>(
+    () => FakeProfileRemoteDataSource(),
+  );
+  getIt.allowReassignment = false;
+}

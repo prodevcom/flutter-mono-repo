@@ -1,10 +1,6 @@
-import 'package:injectable/injectable.dart';
-
 import '../dtos/home_item_dto.dart';
 import 'home_remote_data_source.dart';
 
-@dev
-@LazySingleton(as: HomeRemoteDataSource)
 class FakeHomeRemoteDataSource implements HomeRemoteDataSource {
   static const _fakeItems = [
     HomeItemDto(
