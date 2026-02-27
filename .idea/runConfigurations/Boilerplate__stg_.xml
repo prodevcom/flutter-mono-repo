@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Boilerplate (stg)" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$PROJECT_DIR$/apps/app_boilerplate/lib/main.dart" />
+    <option name="additionalArgs" value="--dart-define-from-file=env/stg.json" />
+    <option name="workingDirectory" value="$PROJECT_DIR$/apps/app_boilerplate" />
+    <method v="2" />
+  </configuration>
+</component>
