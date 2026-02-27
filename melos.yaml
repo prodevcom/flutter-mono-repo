@@ -15,12 +15,20 @@ ide:
 
 scripts:
   gen:
-    run: dart run build_runner build --delete-conflicting-outputs
+    run: flutter pub run build_runner build --delete-conflicting-outputs
     exec:
       concurrency: 1
     packageFilters:
       dependsOn: build_runner
     description: Run build_runner in all packages
+
+  gen:clean:
+    run: flutter pub run build_runner clean
+    exec:
+      concurrency: 1
+    packageFilters:
+      dependsOn: build_runner
+    description: Clean build_runner cache in all packages
 
   l10n:
     run: flutter gen-l10n
