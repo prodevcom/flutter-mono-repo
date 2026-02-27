@@ -9,8 +9,6 @@ abstract class AuthRemoteDataSource {
   Future<UserDto> getCurrentUser();
 }
 
-@prod
-@Environment('stg')
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._apiClient);
