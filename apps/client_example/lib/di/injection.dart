@@ -40,18 +40,22 @@ Future<void> configureDependencies(String environment) async {
 /// This runs AFTER [getIt.init] so fakes always override the real
 /// implementations regardless of injectable_generator's registration order.
 void _registerDevOverrides() {
+  final previousAllowReassignment = getIt.allowReassignment;
   getIt.allowReassignment = true;
-  getIt.registerLazySingleton<AuthRemoteDataSource>(
-    () => FakeAuthRemoteDataSource(),
-  );
-  getIt.registerLazySingleton<AuthLocalDataSource>(
-    () => FakeAuthLocalDataSource(),
-  );
-  getIt.registerLazySingleton<HomeRemoteDataSource>(
-    () => FakeHomeRemoteDataSource(),
-  );
-  getIt.registerLazySingleton<ProfileRemoteDataSource>(
-    () => FakeProfileRemoteDataSource(),
-  );
-  getIt.allowReassignment = false;
+  try {
+    getIt.registerLazySingleton<AuthRemoteDataSource>(
+      () => FakeAuthRemoteDataSource(),
+    );
+    getIt.registerLazySingleton<AuthLocalDataSource>(
+      () => FakeAuthLocalDataSource(),
+    );
+    getIt.registerLazySingleton<HomeRemoteDataSource>(
+      () => FakeHomeRemoteDataSource(),
+    );
+    getIt.registerLazySingleton<ProfileRemoteDataSource>(
+      () => FakeProfileRemoteDataSource(),
+    );
+  } finally {
+    getIt.allowReassignment = previousAllowReassignment;
+  }
 }
