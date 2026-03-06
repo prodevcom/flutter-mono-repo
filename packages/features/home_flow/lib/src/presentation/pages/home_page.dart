@@ -53,12 +53,16 @@ class _HomeContent extends StatelessWidget {
               switch (value) {
                 case 'onboarding':
                   context.router.pushPath(AppRoutes.onboarding);
+                  break;
                 case 'login':
                   context.router.pushPath(AppRoutes.login);
+                  break;
                 case 'register':
                   context.router.pushPath(AppRoutes.register);
+                  break;
                 case 'logout':
                   context.router.pushPath(AppRoutes.login);
+                  break;
               }
             },
             itemBuilder: (_) => [
