@@ -15,6 +15,7 @@ migrate_working_dir/
 *.ipr
 *.iws
 .idea/
+!.idea/runConfigurations/
 
 # VS Code related
 .vscode/
@@ -66,6 +67,10 @@ pubspec.lock
 
 # Claude Code
 .claude/
+CLAUDE.md
 
 # Environment files (keep templates, ignore actual secrets)
 # env/*.json files are tracked (they use compile-time defines, not secrets)
+
+# FVM Version Cache
+.fvm/

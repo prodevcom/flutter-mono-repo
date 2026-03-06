@@ -1,14 +1,19 @@
 .PHONY: setup bootstrap gen l10n analyze test format clean all run-boilerplate-dev run-boilerplate-stg run-client-dev run-client-stg ci help
 
+MAKE := make
+
+# Run melos via `flutter pub run` to use Flutter's bundled Dart SDK.
+# The standalone dart SDK in PATH can't resolve Flutter packages.
+# --no-select skips the interactive package selection prompt.
+MELOS := flutter pub run melos
+
 # ============================================================================
 # MonoApp - Developer Makefile
 # ============================================================================
 
 ## Setup & Bootstrap --------------------------------------------------------
 
-setup: ## First-time setup: install tools and bootstrap
-	@echo "=> Installing Melos globally..."
-	dart pub global activate melos
+setup: ## First-time setup: bootstrap workspace dependencies
 	@echo "=> Bootstrapping workspace..."
 	flutter pub get
 	@$(MAKE) gen
@@ -20,56 +25,15 @@ bootstrap: ## Resolve all workspace dependencies
 
 ## Code Generation ----------------------------------------------------------
 
-gen: ## Run build_runner in all packages (sequential to avoid conflicts)
-	@echo "=> Running build_runner in core..."
-	@cd packages/core && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in shared..."
-	@cd packages/shared && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in modules/auth..."
-	@cd packages/modules/auth && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in modules/home..."
-	@cd packages/modules/home && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in modules/user_profile..."
-	@cd packages/modules/user_profile && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in features/auth_flow..."
-	@cd packages/features/auth_flow && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in features/home_flow..."
-	@cd packages/features/home_flow && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in features/onboarding..."
-	@cd packages/features/onboarding && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in features/profile_flow..."
-	@cd packages/features/profile_flow && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in apps/app_boilerplate..."
-	@cd apps/app_boilerplate && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> Running build_runner in apps/client_example..."
-	@cd apps/client_example && dart run build_runner build --delete-conflicting-outputs
-	@echo "=> All build_runner tasks complete."
+gen: ## Run build_runner in all packages (sequential, topological order via melos)
+	$(MELOS) run gen --no-select
 
 gen-clean: ## Clean build_runner cache and regenerate everything
-	@echo "=> Cleaning build_runner caches..."
-	@cd packages/core && dart run build_runner clean 2>/dev/null || true
-	@cd packages/shared && dart run build_runner clean 2>/dev/null || true
-	@cd packages/modules/auth && dart run build_runner clean 2>/dev/null || true
-	@cd packages/modules/home && dart run build_runner clean 2>/dev/null || true
-	@cd packages/modules/user_profile && dart run build_runner clean 2>/dev/null || true
-	@cd packages/features/auth_flow && dart run build_runner clean 2>/dev/null || true
-	@cd packages/features/home_flow && dart run build_runner clean 2>/dev/null || true
-	@cd packages/features/onboarding && dart run build_runner clean 2>/dev/null || true
-	@cd packages/features/profile_flow && dart run build_runner clean 2>/dev/null || true
-	@cd apps/app_boilerplate && dart run build_runner clean 2>/dev/null || true
-	@cd apps/client_example && dart run build_runner clean 2>/dev/null || true
+	$(MELOS) run gen:clean --no-select
 	@$(MAKE) gen
 
 l10n: ## Generate localization files for all packages
-	@echo "=> Generating localizations..."
-	@cd packages/design_system && flutter gen-l10n
-	@cd packages/features/auth_flow && flutter gen-l10n
-	@cd packages/features/home_flow && flutter gen-l10n
-	@cd packages/features/onboarding && flutter gen-l10n
-	@cd packages/features/profile_flow && flutter gen-l10n
-	@cd apps/app_boilerplate && flutter gen-l10n
-	@cd apps/client_example && flutter gen-l10n
-	@echo "=> Localizations generated."
+	$(MELOS) run l10n --no-select
 
 ## Quality ------------------------------------------------------------------
 
@@ -77,7 +41,7 @@ analyze: ## Run dart analyze across the workspace
 	dart analyze
 
 test: ## Run tests in all packages
-	melos run test
+	$(MELOS) run test --no-select
 
 format: ## Format all Dart files
 	dart format .
@@ -133,7 +97,7 @@ create-app: ## Create a new client app (usage: make create-app NAME=client_acme 
 ## Cleanup ------------------------------------------------------------------
 
 clean: ## Clean all packages (flutter clean + remove generated files)
-	melos run clean
+	$(MELOS) run clean --no-select
 	@echo "=> Cleaned."
 
 clean-all: clean ## Deep clean: remove all generated code, caches, and pods

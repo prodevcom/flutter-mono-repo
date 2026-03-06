@@ -13,7 +13,7 @@ Each package (core, shared, modules, features) has a DI file with `@InjectableIn
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-@InjectableInit.microPackage()
+@InjectableInit.microPackage(ignoreUnregisteredTypesInPackages: ['package:core'])
 void initAuthModulePackageModule(GetIt getIt) {}
 ```
 
@@ -21,7 +21,7 @@ Running `build_runner` generates `auth_module_di.module.dart` which contains an 
 
 ### 2. App Composition
 
-The app wires all micro-packages together:
+The app wires all micro-packages together and registers dev overrides:
 
 ```dart
 // apps/app_boilerplate/lib/di/injection.dart
@@ -40,19 +40,47 @@ final getIt = GetIt.instance;
     ExternalModule(ProfileFlowPackageModule),
   ],
 )
-Future<void> configureDependencies(String environment) async =>
-    getIt.init(environment: environment);
+Future<void> configureDependencies(String environment) async {
+  await getIt.init(environment: environment);
+
+  if (environment == 'dev') {
+    _registerDevOverrides();
+  }
+}
+
+void _registerDevOverrides() {
+  getIt.allowReassignment = true;
+  getIt.registerLazySingleton<AuthRemoteDataSource>(() => FakeAuthRemoteDataSource());
+  getIt.registerLazySingleton<AuthLocalDataSource>(() => FakeAuthLocalDataSource());
+  getIt.registerLazySingleton<HomeRemoteDataSource>(() => FakeHomeRemoteDataSource());
+  getIt.registerLazySingleton<ProfileRemoteDataSource>(() => FakeProfileRemoteDataSource());
+  getIt.allowReassignment = false;
+}
 ```
 
 ### 3. Initialization
 
-Each `main_*.dart` calls `configureDependencies` with the environment name:
+Each `main_*.dart` calls `configureDependencies` inside `runZonedGuarded` with structured error logging:
 
 ```dart
-void main() async {
-  WidgetsFlutterBinding.ensureInitialized();
-  await configureDependencies('dev');  // or 'stg', 'prod'
-  runApp(const App());
+void main() {
+  runZonedGuarded(() async {
+    WidgetsFlutterBinding.ensureInitialized();
+
+    FlutterError.onError = (details) {
+      AppLogger.error(
+        details.exceptionAsString(),
+        tag: 'FlutterError',
+        error: details.exception,
+        stackTrace: details.stack,
+      );
+    };
+
+    await configureDependencies('dev');  // or 'stg', 'prod'
+    runApp(const App());
+  }, (error, stack) {
+    AppLogger.error('Uncaught error', tag: 'Zone', error: error, stackTrace: stack);
+  });
 }
 ```
 
@@ -68,12 +96,12 @@ Injectable supports environment-based registration. MonoApp uses three environme
 
 > **Note:** `@dev`, `@prod`, and `@test` are built-in Injectable constants. For custom environments like `stg`, use `@Environment('stg')`.
 
-### Example: Environment-Specific Data Sources
+### Environment-Specific Data Sources (Current Pattern)
+
+Real implementations use `@LazySingleton` with **no environment annotation** — they register for all environments via injectable. Fake implementations are **plain Dart classes** with no DI annotations — they are registered manually in the app's `injection.dart` only when `environment == 'dev'`.
 
 ```dart
-// Real implementation — used in prod and stg
-@prod
-@Environment('stg')
+// Real implementation — registered by injectable for all environments
 @LazySingleton(as: AuthRemoteDataSource)
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   AuthRemoteDataSourceImpl(this._apiClient);
@@ -81,15 +109,37 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   // ... real API calls
 }
 
-// Fake implementation — used in dev
-@dev
-@LazySingleton(as: AuthRemoteDataSource)
+// Fake implementation — NO DI annotations, registered manually in dev
 class FakeAuthRemoteDataSource implements AuthRemoteDataSource {
   // ... in-memory fake data
 }
 ```
 
-The generated `.module.dart` will register the correct implementation based on the environment string passed to `configureDependencies()`.
+#### Why manual registration instead of `@dev`?
+
+`injectable_generator` processes files alphabetically. Since fake files (`auth_fake_*`) sort before real files (`auth_remote_*`), the generated `.module.dart` registers the fake **first** and the real **second**. With `allowReassignment`, the last write wins — meaning the real implementation always overwrites the fake, even in dev. Manual registration after `getIt.init()` guarantees fakes always win in dev, regardless of generator ordering.
+
+#### Why not use `@prod @Environment('stg')` on the real implementations?
+
+`injectable_generator` 2.x has a known bug in `_sortByDependents` that causes a **Stack Overflow** when environment annotations are combined (`@prod @Environment('stg')`) on classes that depend on types from other packages. Manual registration avoids this entirely.
+
+### `ignoreUnregisteredTypesInPackages`
+
+Micro-packages that depend on types from other packages (e.g., `ApiClient` from `core`) use this option to suppress "Missing dependencies" warnings during code generation:
+
+```dart
+@InjectableInit.microPackage(ignoreUnregisteredTypesInPackages: ['package:core'])
+void initAuthModulePackageModule(GetIt getIt) {}
+```
+
+Feature packages that depend on types from both `core` and `shared` list both:
+
+```dart
+@InjectableInit.microPackage(ignoreUnregisteredTypesInPackages: ['package:core', 'package:shared'])
+void initAuthFlowPackageModule(GetIt getIt) {}
+```
+
+These warnings are expected in a micro-package architecture and do not indicate an error — the types will be available at runtime because the app composes all modules in the correct order via `externalPackageModulesBefore`.
 
 ## Annotations Reference
 
@@ -113,7 +163,7 @@ The generated `.module.dart` will register the correct implementation based on t
 import 'package:get_it/get_it.dart';
 import 'package:injectable/injectable.dart';
 
-@InjectableInit.microPackage()
+@InjectableInit.microPackage(ignoreUnregisteredTypesInPackages: ['package:core'])
 void initNewModulePackageModule(GetIt getIt) {}
 ```
 
@@ -124,7 +174,11 @@ export 'src/di/new_module_di.dart';
 export 'src/di/new_module_di.module.dart';
 ```
 
-3. Run `build_runner` to generate the `.module.dart`
+3. Run `build_runner` to generate the `.module.dart`:
+
+```bash
+make gen
+```
 
 4. Add it to the app's `injection.dart`:
 
@@ -135,8 +189,10 @@ ExternalModule(NewModulePackageModule),
 5. Rebuild the app:
 
 ```bash
-cd apps/app_boilerplate && dart run build_runner build --delete-conflicting-outputs
+make gen
 ```
+
+> **Note:** You no longer need to edit the Makefile when adding new packages — `make gen` delegates to melos, which auto-discovers packages via `packageFilters`.
 
 ## Accessing Dependencies
 

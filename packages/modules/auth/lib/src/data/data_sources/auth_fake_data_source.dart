@@ -1,11 +1,7 @@
-import 'package:injectable/injectable.dart';
-
 import '../dtos/user_dto.dart';
 import 'auth_local_data_source.dart';
 import 'auth_remote_data_source.dart';
 
-@dev
-@LazySingleton(as: AuthRemoteDataSource)
 class FakeAuthRemoteDataSource implements AuthRemoteDataSource {
   static const _fakeUser = UserDto(
     id: 'fake-user-1',
@@ -36,8 +32,6 @@ class FakeAuthRemoteDataSource implements AuthRemoteDataSource {
   }
 }
 
-@dev
-@LazySingleton(as: AuthLocalDataSource)
 class FakeAuthLocalDataSource implements AuthLocalDataSource {
   UserDto? _cachedUser;
   String? _token;

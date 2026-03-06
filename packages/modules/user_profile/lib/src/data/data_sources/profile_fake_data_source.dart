@@ -1,10 +1,6 @@
-import 'package:injectable/injectable.dart';
-
 import '../dtos/profile_dto.dart';
 import 'profile_remote_data_source.dart';
 
-@dev
-@LazySingleton(as: ProfileRemoteDataSource)
 class FakeProfileRemoteDataSource implements ProfileRemoteDataSource {
   ProfileDto _profile = const ProfileDto(
     id: 'fake-user-1',

@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Client (prod)" type="FlutterRunConfigurationType" factoryName="Flutter">
+    <option name="filePath" value="$PROJECT_DIR$/apps/client_example/lib/main_prod.dart" />
+    <option name="additionalArgs" value="--dart-define-from-file=env/prod.json" />
+    <option name="workingDirectory" value="$PROJECT_DIR$/apps/client_example" />
+    <method v="2" />
+  </configuration>
+</component>
